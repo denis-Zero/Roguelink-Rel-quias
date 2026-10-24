@@ -12,7 +12,15 @@ canvas#c{position:fixed;inset:0;width:100%;height:100%;touch-action:none;display
 .sk{position:fixed;width:72px;height:72px;border-radius:50%;border:3px solid var(--cy);background:rgba(24,32,82,.82);color:var(--ink);touch-action:none;display:none;padding:0}
 .sk canvas,.sk svg{width:32px;height:32px;display:block;margin:2px auto 0}
 .sk small{display:block;font:700 10px system-ui;margin-top:0}
-.sk.cd{opacity:.4}
+.sk{opacity:var(--to,1)}.sk.cd{opacity:calc(var(--to,1)*.4)}#bI,#bM,#bP{opacity:var(--to,1)}
+.edm{display:block!important;outline:2px dashed #6ef09a;outline-offset:4px;touch-action:none!important;cursor:move;opacity:1!important;z-index:60}
+.edm::after{content:attr(data-lb);position:absolute;left:50%;top:100%;transform:translateX(-50%);margin-top:7px;white-space:nowrap;font:700 10px system-ui;color:#6ef09a;text-shadow:0 0 3px #000}
+#edbar{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:70;display:none;background:rgba(24,32,82,.95);border:2px solid var(--gold);border-radius:14px;padding:12px;width:min(280px,80vw);text-align:center}
+#edbar.on{display:block}#edbar .b{margin:4px 3px 0}
+#edjz{position:fixed;left:0;top:0;bottom:0;width:65%;display:none;background:rgba(92,225,255,.07);border-right:2px dashed rgba(92,225,255,.6);z-index:3;pointer-events:none}
+#edjz.on{display:block}#edjz::after{content:'Área do joystick (arraste aqui para mover)';position:absolute;left:10px;top:10px;font:700 11px system-ui;color:var(--cy)}
+input[type=range]{width:100%;accent-color:var(--gold);margin:6px 0 0}
+.ob{min-width:70px;text-align:center}
 #s0{right:18px;bottom:calc(env(safe-area-inset-bottom,0px) + 106px);border-color:#ffd45a}
 #s1{right:100px;bottom:calc(env(safe-area-inset-bottom,0px) + 62px);border-color:#ffd45a}
 #s2{right:100px;bottom:calc(env(safe-area-inset-bottom,0px) + 150px);border-color:#ffd45a}#s3{right:182px;bottom:calc(env(safe-area-inset-bottom,0px) + 106px);border-color:#ffd45a}
@@ -54,15 +62,18 @@ button:focus-visible{outline:3px solid var(--cy);outline-offset:2px}
 <div class="ov on" id="menu"><div class="box">
 <h1>Livro Rogue Link: Relíquias</h1>
 <p id="res">Explore livremente. O mundo está tomado por monstros mais poderosos e resistentes. Hordas infinitas virão provar seu valor. Sobreviva e conquiste as melhores relíquias.</p>
-<p>Mover: arraste na metade esquerda da tela. Ataque automático com a arma equipada. Botões à direita: livros de feitiço e Dash. Baús e itens são coletados ao chegar perto. O jogo salva sozinho; use CONTINUAR para voltar. Teclado: Q/E/R/F usam os livros de feitiço. Controle Xbox: analógico move · X livro 1 · Y livro 2 · A livro 3 · B livro 4 · L3 dash · seta para cima mochila · Start pausa · View mapa · analógico direito move o cursor, LT/R3 clica.</p>
+<p>Mover: arraste na área do joystick (lado ajustável em Opções). Ataque automático com a arma equipada. Botões à direita: livros de feitiço e Dash. Baús e itens são coletados ao chegar perto. O jogo salva sozinho; use CONTINUAR para voltar. Teclas, controle e botões de toque podem ser personalizados em Opções.</p>
 <h2>Ouro <span id="gold" style="color:var(--gold)">0</span> · Melhor horda <span id="best">0</span></h2>
 <div id="tabs" class="tabs"></div><div id="cls"></div><div id="shop" style="display:none"></div><div id="tree" style="display:none"></div><div id="bst" style="display:none"></div><div id="ach" style="display:none"></div>
-<button class="b" id="mSnd" style="margin-top:8px"></button><button class="go" id="cont" style="display:none;background:var(--cy);position:sticky;bottom:74px">CONTINUAR</button><button class="go" id="play">JOGAR</button><button class="go" id="playFree" style="background:var(--cy)">MODO LIVRE (sem hordas)</button>
+<button class="b" id="mSnd" style="margin-top:8px"></button> <button class="b" id="mOpt" style="margin-top:8px">Opções · Controles</button><button class="go" id="cont" style="display:none;background:var(--cy);position:sticky;bottom:74px">CONTINUAR</button><button class="go" id="play">JOGAR</button><button class="go" id="playFree" style="background:var(--cy)">MODO LIVRE (sem hordas)</button>
 </div></div>
 <div class="ov" id="lvl"><div class="box"><h1>Nível!</h1><p>Escolha um poder:</p><div id="cards" style="margin-top:8px"></div></div></div>
 <div class="ov" id="mapo"><div class="box"><h1>Mapa de Valthoria</h1><p>Arraste para mover. Toque para marcar; toque num marcador para remover.</p><canvas id="mc" width="440" height="440" style="width:100%;aspect-ratio:1;display:block;background:#05071a;border-radius:12px;touch-action:none"></canvas><div id="mt"></div><button class="go" id="closeMap" style="font-size:17px;padding:12px">Fechar</button></div></div>
 <div class="ov" id="inv"><div class="box"><h1 id="invH1">Mochila</h1><div id="invc"></div><button class="go" id="closeInv" style="font-size:17px;padding:12px">Fechar</button></div></div>
-<div class="ov" id="pause"><div class="box"><h1>Pausa</h1><p>O jogo salva sozinho a cada 20 s e ao sair da página.</p><p id="pm" style="color:var(--cy)"></p><button class="go" id="pRes" style="font-size:17px;padding:12px">Continuar</button><button class="go" id="pSave" style="font-size:17px;padding:12px;background:var(--cy)">Salvar agora</button><button class="go" id="pSnd" style="font-size:15px;padding:10px;background:transparent;color:var(--cy);border:2px solid var(--cy)"></button><button class="go" id="pExit" style="font-size:17px;padding:12px;background:transparent;color:var(--gold);border:2px solid var(--gold)">Salvar e sair para o menu</button><button class="go" id="pEnd" style="font-size:15px;padding:10px;background:transparent;color:var(--red);border:2px solid var(--red)">Encerrar partida (coleta recompensas)</button></div></div>
+<div class="ov" id="pause"><div class="box"><h1>Pausa</h1><p>O jogo salva sozinho a cada 20 s e ao sair da página.</p><p id="pm" style="color:var(--cy)"></p><button class="go" id="pRes" style="font-size:17px;padding:12px">Continuar</button><button class="go" id="pSave" style="font-size:17px;padding:12px;background:var(--cy)">Salvar agora</button><button class="go" id="pSnd" style="font-size:15px;padding:10px;background:transparent;color:var(--cy);border:2px solid var(--cy)"></button><button class="go" id="pOpt" style="font-size:15px;padding:10px;background:transparent;color:var(--cy);border:2px solid var(--cy)">Opções · Controles</button><button class="go" id="pExit" style="font-size:17px;padding:12px;background:transparent;color:var(--gold);border:2px solid var(--gold)">Salvar e sair para o menu</button><button class="go" id="pEnd" style="font-size:15px;padding:10px;background:transparent;color:var(--red);border:2px solid var(--red)">Encerrar partida (coleta recompensas)</button></div></div>
+<div class="ov" id="opts"><div class="box"><h1>Opções</h1><div class="tabs" id="oTabs"></div><p id="oMsg" style="color:var(--cy);min-height:18px"></p><div id="oBody"></div><button class="go" id="oClose" style="font-size:17px;padding:12px">Voltar</button></div></div>
+<div id="edjz"></div>
+<div id="edbar"><b style="color:var(--gold)">Arraste os botões para onde quiser</b><p style="margin:6px 0 0">Tamanho <span id="edTv"></span></p><input id="edTs" type="range" min="60" max="160" step="5"><div><button class="b" id="edRst">Restaurar</button><button class="b" id="edOk" style="background:var(--gold);color:#141a3f">Concluir</button></div></div>
 <script>
 const $=i=>document.getElementById(i);
 const cv=$('c');let ctx=cv.getContext('2d'),T;
@@ -79,6 +90,87 @@ const SPR={base:'Sprits/',exts:['png','webp','gif','jpg'],img:{},tm:0,
   ctx.imageSmoothingEnabled=false;if(flash)ctx.filter='brightness(3)';
   ctx.drawImage(im,-w/2,bottom-h,w,h);if(flash)ctx.filter='none';return 1}};
 addEventListener('load',()=>SPR.init());
+
+// ===== OPÇÕES: teclado, controle e toque =====
+const OPT_DEF={kb:{up:['w','arrowup'],down:['s','arrowdown'],left:['a','arrowleft'],right:['d','arrowright'],s0:['q',''],s1:['e',''],s2:['r',''],s3:['f',''],dash:[' ',''],bag:['i',''],map:['m',''],pause:['p',''],snd:['n','']},
+ pb:{dash:10,s0:2,s1:3,s2:0,s3:1,bag:12,map:8,pause:9},ts:1,to:1,jz:.65,js:'l',tz:{}};
+let OPT=JSON.parse(JSON.stringify(OPT_DEF));
+try{const o=JSON.parse(localStorage.getItem('rlr_opts')||'null');if(o){
+ for(const k in OPT_DEF.kb)if(o.kb&&Array.isArray(o.kb[k]))OPT.kb[k]=[String(o.kb[k][0]||''),String(o.kb[k][1]||'')];
+ for(const k in OPT_DEF.pb)if(o.pb&&k in o.pb)OPT.pb[k]=(typeof o.pb[k]==='number')?o.pb[k]:null;
+ for(const k of['ts','to','jz'])if(typeof o[k]==='number')OPT[k]=o[k];
+ if(o.js==='r')OPT.js='r';if(o.tz&&typeof o.tz==='object')OPT.tz=o.tz}}catch(e){}
+const saveOpt=()=>{try{localStorage.setItem('rlr_opts',JSON.stringify(OPT))}catch(e){}};
+const kh=(a,k)=>OPT.kb[a].includes(k),kd=a=>OPT.kb[a].some(k=>k&&key[k]);
+const TBT=['s0','s1','s2','s3','bD','bI','bM','bP'],TBL={s0:'Livro 1',s1:'Livro 2',s2:'Livro 3',s3:'Livro 4',bD:'Dash',bI:'Mochila',bM:'Mapa',bP:'Pausa'};
+function applyTouch(){
+ document.documentElement.style.setProperty('--to',OPT.to);
+ TBT.forEach(id=>{const el=$(id),z=OPT.tz[id];el.dataset.lb=TBL[id];
+  if(z&&typeof z.x==='number'){el.style.left=z.x*100+'%';el.style.top=z.y*100+'%';el.style.right=el.style.bottom='auto';el.style.transform='translate(-50%,-50%) scale('+OPT.ts+')'}
+  else{el.style.left=el.style.top=el.style.right=el.style.bottom='';el.style.transform=OPT.ts===1?'':'scale('+OPT.ts+')'}});
+ const j=$('edjz').style;j.width=OPT.jz*100+'%';if(OPT.js==='r'){j.left='auto';j.right='0';j.borderRight='0';j.borderLeft='2px dashed rgba(92,225,255,.6)'}else{j.right='auto';j.left='0';j.borderLeft='0';j.borderRight='2px dashed rgba(92,225,255,.6)'}}
+applyTouch();
+const KL={up:'Mover para cima',down:'Mover para baixo',left:'Mover para a esquerda',right:'Mover para a direita',s0:'Livro de feitiço 1',s1:'Livro de feitiço 2',s2:'Livro de feitiço 3',s3:'Livro de feitiço 4',dash:'Dash',bag:'Mochila',map:'Mapa',pause:'Pausa',snd:'Som ligado/desligado'};
+const PL={dash:'Dash',s0:'Livro de feitiço 1',s1:'Livro de feitiço 2',s2:'Livro de feitiço 3',s3:'Livro de feitiço 4',bag:'Mochila',map:'Mapa',pause:'Pausa'};
+const PBN=['A','B','X','Y','LB','RB','LT','RT','View','Start','L3','R3','↑','↓','←','→','Home'],PRES=[6,11,13,14,15];
+const kn=k=>{if(!k)return '—';const m={' ':'Espaço',arrowup:'↑',arrowdown:'↓',arrowleft:'←',arrowright:'→',control:'Ctrl'};return m[k]||(k.length>1?k[0].toUpperCase()+k.slice(1):k.toUpperCase())};
+const pn=n=>n==null?'—':(PBN[n]||'Botão '+n);
+let OT='kb',optPrev='menu',optFrom='menu',bindCap=null,edit=false,drag=null;
+const oMsg=t=>{$('oMsg').textContent=t||''};
+function renderOpts(){
+ $('oTabs').innerHTML=[['kb','Teclado'],['pb','Controle'],['tc','Toque']].map(t=>'<button class="tb'+(OT===t[0]?' on':'')+'" data-t="'+t[0]+'">'+t[1]+'</button>').join('');
+ let h='';
+ if(OT==='kb'){h+='<p>Toque numa tecla e aperte a nova. Backspace limpa a tecla; Esc cancela (e sempre pausa o jogo).</p>';
+  for(const a in KL)h+='<div class="row"><div><b>'+KL[a]+'</b></div>'+[0,1].map(i=>'<button class="b ob" data-a="'+a+'" data-s="'+i+'">'+(bindCap&&bindCap.t==='k'&&bindCap.a===a&&bindCap.s===i?'…':kn(OPT.kb[a][i]))+'</button>').join('')+'</div>';
+  h+='<button class="b" data-act="rkb" style="margin-top:6px">Restaurar teclado</button>'}
+ else if(OT==='pb'){h+='<p>Toque numa ação e aperte o novo botão do controle. Reservados: LT e R3 (clique do cursor) e o direcional ← ↓ →. Sem resposta em 8 s, cancela.</p>';
+  for(const a in PL)h+='<div class="row"><div><b>'+PL[a]+'</b></div><button class="b ob" data-p="'+a+'">'+(bindCap&&bindCap.t==='p'&&bindCap.a===a?'Aperte…':pn(OPT.pb[a]))+'</button></div>';
+  h+='<button class="b" data-act="rpb" style="margin-top:6px">Restaurar controle</button>'}
+ else{h+='<p>Mover: arraste na área do joystick. Ajuste o tamanho, a transparência e a posição dos botões.</p>'+
+  [['rTs','Tamanho dos botões',60,160,Math.round(OPT.ts*100)],['rTo','Opacidade dos botões',30,100,Math.round(OPT.to*100)],['rJz','Área do joystick (largura da tela)',30,90,Math.round(OPT.jz*100)]].map(r=>'<div class="row"><div><b>'+r[1]+' · <span id="v'+r[0]+'">'+r[4]+'%</span></b><input type="range" id="'+r[0]+'" min="'+r[2]+'" max="'+r[3]+'" step="5" value="'+r[4]+'"></div></div>').join('')+
+  '<div class="row"><div><b>Lado do joystick</b></div><button class="b ob" data-act="jside">'+(OPT.js==='r'?'Direita':'Esquerda')+'</button></div><button class="go" data-act="edit" style="background:var(--cy);font-size:16px;padding:12px">Editar posição dos botões</button><button class="b" data-act="rtc" style="margin-top:8px">Restaurar toque</button>'}
+ $('oBody').innerHTML=h}
+function openOpts(from){optPrev=mode;optFrom=from;mode='opt';bindCap=null;$(from).classList.remove('on');$('opts').classList.add('on');oMsg('');renderOpts()}
+function closeOpts(){bindCap=null;saveOpt();$('opts').classList.remove('on');$(optFrom).classList.add('on');mode=optPrev}
+function startEdit(){edit=true;bindCap=null;$('opts').classList.remove('on');TBT.forEach(id=>$(id).classList.add('edm'));$('edjz').classList.add('on');$('edbar').classList.add('on');$('edTs').value=Math.round(OPT.ts*100);$('edTv').textContent=Math.round(OPT.ts*100)+'%'}
+function endEdit(){edit=false;drag=null;TBT.forEach(id=>$(id).classList.remove('edm'));$('edjz').classList.remove('on');$('edbar').classList.remove('on');saveOpt();$('opts').classList.add('on');renderOpts()}
+const backOpts=()=>edit?endEdit():closeOpts();
+$('mOpt').onclick=()=>openOpts('menu');$('pOpt').onclick=()=>openOpts('pause');$('oClose').onclick=backOpts;$('edOk').onclick=endEdit;
+$('edRst').onclick=()=>{OPT.tz={};applyTouch();saveOpt()};
+$('edTs').oninput=e=>{OPT.ts=e.target.value/100;$('edTv').textContent=e.target.value+'%';applyTouch();saveOpt()};
+$('oTabs').onclick=e=>{const b=e.target.closest('[data-t]');if(b){OT=b.dataset.t;bindCap=null;oMsg('');renderOpts()}};
+$('oBody').onclick=e=>{
+ const k=e.target.closest('[data-a]'),p=e.target.closest('[data-p]'),a=e.target.closest('[data-act]');
+ if(k){bindCap={t:'k',a:k.dataset.a,s:+k.dataset.s};k.blur();oMsg('Aperte a nova tecla…');renderOpts()}
+ else if(p){const c=bindCap={t:'p',a:p.dataset.p};oMsg('Aperte o botão do controle…');renderOpts();setTimeout(()=>{if(bindCap===c){bindCap=null;oMsg('');renderOpts()}},8000)}
+ else if(a){const x=a.dataset.act;
+  if(x==='rkb'){OPT.kb=JSON.parse(JSON.stringify(OPT_DEF.kb))}else if(x==='rpb'){OPT.pb={...OPT_DEF.pb}}
+  else if(x==='rtc'){OPT.ts=1;OPT.to=1;OPT.jz=.65;OPT.js='l';OPT.tz={};applyTouch()}else if(x==='jside'){OPT.js=OPT.js==='r'?'l':'r';applyTouch()}
+  else if(x==='edit'){startEdit();return}
+  saveOpt();oMsg('');renderOpts()}};
+$('oBody').oninput=e=>{const t=e.target,v=+t.value;if(t.id==='rTs')OPT.ts=v/100;else if(t.id==='rTo')OPT.to=v/100;else if(t.id==='rJz')OPT.jz=v/100;else return;
+ $('v'+t.id).textContent=v+'%';applyTouch();saveOpt()};
+// captura de tecla (antes dos outros ouvintes)
+addEventListener('keydown',e=>{
+ if(bindCap&&bindCap.t==='k'){e.preventDefault();e.stopImmediatePropagation();const k=e.key.toLowerCase();
+  if(k==='escape'){bindCap=null;oMsg('');renderOpts();return}
+  if(['meta','dead','unidentified','contextmenu'].includes(k))return;
+  const c=bindCap;bindCap=null;
+  if(k==='backspace'){OPT.kb[c.a][c.s]='';oMsg('Tecla removida.')}
+  else{let mv='';for(const a in OPT.kb)OPT.kb[a].forEach((x,i)=>{if(x===k&&!(a===c.a&&i===c.s)){OPT.kb[a][i]='';mv=KL[a]}});
+   OPT.kb[c.a][c.s]=k;oMsg(mv?kn(k)+' foi movida de "'+mv+'".':'')}
+  saveOpt();renderOpts();return}
+ if((mode==='opt')&&e.key==='Escape')backOpts()},true);
+// arrastar botões no modo de edição
+document.addEventListener('pointerdown',e=>{if(!edit)return;const el=e.target.closest&&e.target.closest('.edm');if(!el)return;e.preventDefault();e.stopPropagation();
+ const r=el.getBoundingClientRect();drag={id:el.id,dx:r.left+r.width/2-e.clientX,dy:r.top+r.height/2-e.clientY}},true);
+document.addEventListener('pointermove',e=>{if(!drag)return;const c=(v,m)=>+Math.max(.04,Math.min(.96,v/m)).toFixed(4);OPT.tz[drag.id]={x:c(e.clientX+drag.dx,innerWidth),y:c(e.clientY+drag.dy,innerHeight)};applyTouch()});
+['pointerup','pointercancel'].forEach(t=>document.addEventListener(t,()=>{if(drag){drag=null;saveOpt()}}));
+// captura de botão do controle (chamada pelo gpPoll)
+function padCap(E){for(const i in E)if(E[i]){const n=+i,c=bindCap;bindCap=null;
+ if(PRES.includes(n)){oMsg('Esse botão é reservado. Escolha outro.');renderOpts();return}
+ let mv='';for(const a in OPT.pb)if(a!==c.a&&OPT.pb[a]===n){OPT.pb[a]=OPT.pb[c.a];mv=PL[a]}
+ OPT.pb[c.a]=n;oMsg(mv?'Trocado com "'+mv+'".':'');saveOpt();renderOpts();return}}
 
 let W,H,D,SAT=0,VG;
 function rs(){D=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;cv.width=W*D;cv.height=H*D;ctx.setTransform(D,0,0,D,0,0);SAT=parseFloat(getComputedStyle(document.documentElement).paddingTop)||0;VG=ctx.createRadialGradient(W/2,H/2,Math.min(W,H)*.3,W/2,H/2,Math.max(W,H)*.72);VG.addColorStop(0,'rgba(2,4,16,0)');VG.addColorStop(1,'rgba(2,4,16,.8)')}
@@ -133,7 +225,8 @@ const gcs={x:innerWidth/2,y:innerHeight/2,d:0,i:9,t:null};
 function gcEv(t,el){el.dispatchEvent(new PointerEvent(t,{bubbles:true,cancelable:true,clientX:gcs.x,clientY:gcs.y,pointerId:7,pointerType:'mouse',isPrimary:true,button:0,buttons:t==='pointerup'?0:1,view:window}))}
 addEventListener('gamepadconnected',()=>{if(g&&mode==='play')banner('Controle conectado','#6ef09a')});
 function gpPoll(dt){gp.x=gp.y=0;const pad=gpPad();if(!pad){gc.style.display='none';document.querySelectorAll('.gpf').forEach(b=>b.classList.remove('gpf'));return}
- const B=i=>!!(pad.buttons[i]&&pad.buttons[i].pressed),E={};[0,1,2,3,4,5,7,8,9,10,12].forEach(i=>{const n=B(i);E[i]=n&&!gpp[i];gpp[i]=n});
+ const B=i=>!!(pad.buttons[i]&&pad.buttons[i].pressed),E={};for(let i=0;i<pad.buttons.length;i++){const n=B(i);E[i]=n&&!gpp[i];gpp[i]=n}
+ if(bindCap&&bindCap.t==='p'){padCap(E);return}
  let ax=dz(pad.axes[0]||0),ay=dz(pad.axes[1]||0);if(B(14))ax=-1;if(B(15))ax=1;if(B(12)&&mode!=='play')ay=-1;if(B(13))ay=1;
  if(ax||ay||pad.buttons.some(b=>b.pressed))au();
  {const rx=dz(pad.axes[2]||0),ry=dz(pad.axes[3]||0),cd=B(6)||B(11);
@@ -141,7 +234,7 @@ function gpPoll(dt){gp.x=gp.y=0;const pad=gpPad();if(!pad){gc.style.display='non
   if(cd&&!gcs.d){gcs.d=1;gc.style.display='block';gcs.i=0;gcs.t=document.elementFromPoint(gcs.x,gcs.y);gcs.t&&gcEv('pointerdown',gcs.t)}
   else if(!cd&&gcs.d){gcs.d=0;const t=document.elementFromPoint(gcs.x,gcs.y);if(t){gcEv('pointerup',t);if(t===gcs.t||(gcs.t&&gcs.t.contains(t)))t.dispatchEvent(new MouseEvent('click',{bubbles:true,cancelable:true,clientX:gcs.x,clientY:gcs.y,view:window}))}}
   if(mode==='play'&&gcs.i>3&&!gcs.d)gc.style.display='none';gc.style.left=gcs.x+'px';gc.style.top=gcs.y+'px'}
- if(mode==='play'){gp.x=ax;gp.y=ay;if(E[10])dash();if(E[2])cast(0);if(E[3])cast(1);if(E[0])cast(2);if(E[1])cast(3);if(E[12])$('bI').click();if(E[8])$('bM').click();if(E[9])pauseOpen();return}
+ if(mode==='play'){gp.x=ax;gp.y=ay;{const P=OPT.pb;if(E[P.dash])dash();if(E[P.s0])cast(0);if(E[P.s1])cast(1);if(E[P.s2])cast(2);if(E[P.s3])cast(3);if(E[P.bag])$('bI').click();if(E[P.map])$('bM').click();if(E[P.pause])pauseOpen()}return}
  const ovs=[...document.querySelectorAll('.ov.on')],ov=ovs[ovs.length-1];document.querySelectorAll('.gpf').forEach(b=>b.classList.remove('gpf'));if(!ov)return;
  if(ov!==gpo){gpo=ov;gpi=0;gpl=-1}
  const bs=[...ov.querySelectorAll('button:not([disabled]),.tile')].filter(b=>b.offsetParent);if(!bs.length)return;
@@ -149,7 +242,7 @@ function gpPoll(dt){gp.x=gp.y=0;const pad=gpPad();if(!pad){gc.style.display='non
  if((dx||dy)&&(gpr.k!==k||gpr.t<=0)){gpi+=dx||dy*(bs[Math.min(gpi,bs.length-1)].classList.contains('tile')?4:1);gpr.t=gpr.k===k?.15:.35;sfx('ui')}gpr.k=(dx||dy)?k:'';
  gpi=Math.max(0,Math.min(bs.length-1,gpi));bs[gpi].classList.add('gpf');if(gpl!==gpi){gpl=gpi;bs[gpi].scrollIntoView({block:'nearest'})}
  if(E[0])bs[gpi].click();
- if(E[1]){if(mode==='pause')$('pRes').click();else if(mode==='inv')$('closeInv').click();else if(mode==='map')$('closeMap').click()}
+ if(E[1]){if(mode==='pause')$('pRes').click();else if(mode==='inv')$('closeInv').click();else if(mode==='map')$('closeMap').click();else if(mode==='opt')backOpts()}
  if(E[9]){if(mode==='menu')(getRun()?$('cont'):$('play')).click();else if(mode==='pause')$('pRes').click()}}
 /* ---------- itens ---------- */
 const RAR=['Comum','Raro','Épico','Lendário'],RC=['#c8cde8','#5aa8ff','#c06bff','#ffa21f'],RM=[1,1.35,1.8,2.5];
@@ -422,10 +515,10 @@ $('s2').addEventListener('pointerdown',e=>{e.preventDefault();cast(2)});$('s3').
 $('bD').addEventListener('pointerdown',e=>{e.preventDefault();dash()});
 $('bI').onclick=()=>{if(mode==='play'){mode='inv';sel=null;msel=null;invUI();$('inv').classList.add('on')}};
 $('closeInv').onclick=()=>{msel=null;$('inv').classList.remove('on');mode='play'};
-cv.addEventListener('pointerdown',e=>{if(!joy&&e.clientX<W*.65){joy={id:e.pointerId,x0:e.clientX,y0:e.clientY,x:e.clientX,y:e.clientY};try{cv.setPointerCapture(e.pointerId)}catch(_){}}});
+cv.addEventListener('pointerdown',e=>{if(!joy&&(OPT.js==='r'?e.clientX>W*(1-OPT.jz):e.clientX<W*OPT.jz)){joy={id:e.pointerId,x0:e.clientX,y0:e.clientY,x:e.clientX,y:e.clientY};try{cv.setPointerCapture(e.pointerId)}catch(_){}}});
 cv.addEventListener('pointermove',e=>{if(joy&&e.pointerId===joy.id){joy.x=e.clientX;joy.y=e.clientY}});
 ['pointerup','pointercancel'].forEach(t=>cv.addEventListener(t,e=>{if(joy&&e.pointerId===joy.id)joy=null}));
-addEventListener('keydown',e=>{const k=e.key.toLowerCase();key[k]=1;if(mode==='play'){if(k==='q')cast(0);if(k==='e')cast(1);if(k==='r')cast(2);if(k==='f')cast(3);if(k===' ')dash();if(k==='i')$('bI').click();if(k==='m')$('bM').click();if(k==='p'||k==='escape')pauseOpen();if(k==='n')togSnd()}else if(mode==='pause'&&(k==='p'||k==='escape'))$('pRes').click()});
+addEventListener('keydown',e=>{const k=e.key.toLowerCase();key[k]=1;if(mode==='play'){if(kh('s0',k))cast(0);if(kh('s1',k))cast(1);if(kh('s2',k))cast(2);if(kh('s3',k))cast(3);if(kh('dash',k))dash();if(kh('bag',k))$('bI').click();if(kh('map',k))$('bM').click();if(kh('pause',k)||k==='escape')pauseOpen();if(kh('snd',k))togSnd()}else if(mode==='pause'&&(kh('pause',k)||k==='escape'))$('pRes').click()});
 addEventListener('keyup',e=>{key[e.key.toLowerCase()]=0});
 /* ---------- mochila ---------- */
 function iconCanvas(it,sz){const c=document.createElement('canvas');c.width=c.height=sz*2;c.style.width=c.style.height=sz+'px';drawIcon(c.getContext('2d'),it,sz,sz,sz*2);return c}
@@ -502,7 +595,7 @@ function upd(dt){
   if(!g.in){const a=Math.floor(p.x/160),c=Math.floor(p.y/160),k=a+c;if(k!==g.lc){g.lc=k;for(let i=-2;i<=2;i++)for(let j=-2;j<=2;j++)EX.add((a+i)+','+(c+j))}}}
  let vx=0,vy=0;
  if(joy){const dx=joy.x-joy.x0,dy=joy.y-joy.y0,l=Math.hypot(dx,dy);if(l>6){const k=Math.min(l,55)/55;vx=dx/l*k;vy=dy/l*k}}
- vx+=gp.x;vy+=gp.y;if(key.a||key.arrowleft)vx-=1;if(key.d||key.arrowright)vx+=1;if(key.w||key.arrowup)vy-=1;if(key.s||key.arrowdown)vy+=1;
+ vx+=gp.x;vy+=gp.y;if(kd('left'))vx-=1;if(kd('right'))vx+=1;if(kd('up'))vy-=1;if(kd('down'))vy+=1;
  const l=Math.hypot(vx,vy);if(l>1){vx/=l;vy/=l}
  if(l>.1){p.fx=vx/l;p.fy=vy/l}
  const sp=135*(1+.05*M.l.spd)*u.spd;
@@ -648,7 +741,7 @@ function draw(){
  if(joy){let dx=joy.x-joy.x0,dy=joy.y-joy.y0;const l=Math.hypot(dx,dy);if(l>55){dx=dx/l*55;dy=dy/l*55}
   ctx.fillStyle='rgba(255,255,255,.07)';ctx.beginPath();ctx.arc(joy.x0,joy.y0,55,0,6.283);ctx.fill();ctx.strokeStyle='rgba(255,255,255,.4)';ctx.lineWidth=3;ctx.stroke();
   ctx.fillStyle='rgba(255,255,255,.55)';ctx.beginPath();ctx.arc(joy.x0+dx,joy.y0+dy,24,0,6.283);ctx.fill()}
- else if(g.t<6&&mode==='play'){ctx.fillStyle='rgba(255,255,255,.7)';ctx.font='700 14px system-ui';ctx.textAlign='left';ctx.fillText('Arraste aqui para mover',24,H-90-SAT)}
+ else if(g.t<6&&mode==='play'){ctx.fillStyle='rgba(255,255,255,.7)';ctx.font='700 14px system-ui';ctx.textAlign='left';ctx.fillText('Arraste aqui para mover',OPT.js==='r'?W-24-ctx.measureText('Arraste aqui para mover').width:24,H-90-SAT)}
  // HUD
  const top=SAT+10;ctx.textBaseline='middle';
  rr(10,top,W-20,10,5);ctx.fillStyle='rgba(0,0,0,.55)';ctx.fill();
