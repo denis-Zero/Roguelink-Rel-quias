@@ -161,6 +161,8 @@ details.dt{background:var(--card);border:1px solid var(--line);border-radius:10p
 details.dt summary{cursor:pointer;font:500 14px var(--fd);color:var(--cy)}
 @media (max-width:520px){.hero{grid-template-columns:72px 1fr}.hero img.pt{width:72px;height:72px}.mini{grid-template-columns:repeat(3,1fr)}.sp{grid-template-columns:56px 1fr}.sp .cdn{grid-column:2;text-align:left}.wbar{display:none}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}.rv.pre{opacity:1;transform:none}.pre .bar i{width:calc(var(--w,0)*1%)}}
+.sw{display:inline-block;width:14px;height:14px;border-radius:3px;border:1px solid var(--mu);background:var(--c);vertical-align:-2px;margin-right:8px}
+code.fn{font:500 12px var(--fd);background:var(--bg);border:1px solid var(--line);border-radius:5px;padding:1px 6px;white-space:nowrap}
 </style>
 
 <div class="wrap">
@@ -168,7 +170,7 @@ details.dt summary{cursor:pointer;font:500 14px var(--fd);color:var(--cy)}
  <div class="eyebrow">Livro</div>
  <h1>Rogue Link:<br>Relíquias</h1>
  <p class="sub">Guia completo do jogo, com os valores tirados do código.</p>
- <div class="edition"><span class="n">Atualizado</span><span>Sair do modo livre levando o ouro</span><span>5 armas novas</span><span>Catálogo de todos os nomes</span><span>Herói Pirotécnico</span></div>
+ <div class="edition"><span class="n">Atualizado</span><span>Vilas e colisão nas construções</span><span>Modo livre: save próprio e renascimento</span><span>Sair do modo livre levando o ouro</span><span>5 armas novas</span><span>Catálogo de todos os nomes</span><span>Herói Pirotécnico</span></div>
  <div class="party" id="party"></div>
  <div class="march" aria-hidden="true"><div class="track" id="track"></div></div>
 </header>
@@ -191,7 +193,8 @@ details.dt summary{cursor:pointer;font:500 14px var(--fd);color:var(--cy)}
  <div class="card rv"><h4>Locais do mundo</h4><ul class="d">
   <li><b>Baús</b> (comuns e dourados) com itens e <b>caixotes</b> que também dropam.</li>
   <li><b>Santuários</b> (8 pilares) guardam itens únicos Lendários.</li>
-  <li><b>Casas</b> e <b>cavernas/masmorras</b> (Salões, Cruz, Anel, Gruta) com layouts variados.</li>
+  <li><b>Vilas</b> de casas e cabanas espalhadas pelos biomas, com pouquíssimas casas soltas fora delas, e <b>cavernas/masmorras</b> (Salões, Cruz, Anel, Gruta) com layouts variados.</li>
+  <li>Casas, cabanas e cavernas têm <b>3× a altura do herói</b> e paredes sólidas: só a entrada fica livre. Os inimigos também não atravessam as paredes.</li>
   <li>Baús também podem soltar consumíveis (14% nos comuns, 30% nos grandes).</li></ul>
   <h4 style="margin-top:14px">Dificuldade e itens por distância</h4><ul class="d">
   <li>Inimigos têm +60% de poder e resistência extras sobre os valores base.</li>
@@ -215,12 +218,14 @@ details.dt summary{cursor:pointer;font:500 14px var(--fd);color:var(--cy)}
  <div class="step"><div class="k">1 · Explore</div>Abra baús, ache armas, suba de nível e junte ouro.</div>
  <div class="step"><div class="k">2 · Pause</div>Toque em <b>"Sair do modo livre (levar o ouro)"</b>.</div>
  <div class="step"><div class="k">3 · Acampamento</div><span class="coin"></span>O ouro, com os bônus da loja e da árvore, entra no seu saldo.</div>
- <div class="step"><div class="k">4 · Continuar</div>O botão CONTINUAR volta exatamente de onde você saiu.</div>
+ <div class="step"><div class="k">4 · Continuar</div>O botão CONTINUAR do modo livre volta exatamente de onde você saiu.</div>
 </div>
 <p class="rv" style="margin-top:12px">O save guarda <b>inventário, equipamentos, nível e XP, baús abertos, posição e o perigo do mundo</b>, como num modo história. O ouro não é contado duas vezes.</p>
+<p class="rv"><b>O modo livre tem um save só dele</b>, separado do save das hordas: cada um tem o seu botão CONTINUAR, e começar um não apaga o outro. Ao morrer no modo livre, você <b>não volta ao acampamento</b>. Uma animação suave leva seu herói até a <b>última casa ou cabana em que entrou</b> (ou ao ponto de partida, se ainda não entrou em nenhuma), e ele renasce com a vida cheia. <b>Todo o ouro que você carregava fica caído onde você morreu</b>, marcado com 💰 no mapa, e você pode voltar lá para pegá-lo. Itens, nível e XP não se perdem.</p>
 <div class="tbl rv"><table><thead><tr><th>Saída</th><th>Ouro</th><th>Save</th><th>Pontos de talento</th></tr></thead><tbody>
  <tr><td><b>Salvar e sair para o menu</b></td><td>Fica dentro da partida</td><td class="ok">Mantido</td><td>Não</td></tr>
  <tr><td><b class="cy">Sair do modo livre</b> <span class="new">novo</span></td><td>Vai para o acampamento</td><td>Mantido</td><td>Não</td></tr>
+ <tr><td><b>Morrer no modo livre</b> <span class="new">novo</span></td><td>Cai no chão, onde você morreu</td><td>Mantido</td><td>Não</td></tr>
  <tr><td><b class="red">Encerrar partida</b></td><td>Pago no acampamento</td><td>Apagado</td><td>Sim</td></tr></tbody></table></div>
 </section>
 
@@ -334,6 +339,44 @@ details.dt summary{cursor:pointer;font:500 14px var(--fd);color:var(--cy)}
 <div class="tbl rv" id="cbody"></div>
 </section>
 
+<section id="s14"><div class="sh rv"><span class="no">14</span><h2>Sprites: Solo e Construções</h2></div>
+<p class="mu rv">Medidas e estilo para desenhar os sprites do chão (pasta <code class="fn">Sprits/Solo</code>) e das construções (pasta <code class="fn">Construções</code>). Os valores vêm do desenho atual do jogo.</p>
+<div class="grid g2">
+<div class="card rv"><h4>Estilo geral</h4><ul class="d">
+<li>Pixel art 2D em vista de cima levemente inclinada, com bordas nítidas (o jogo desenha sem suavização).</li>
+<li>Cores escuras e dessaturadas, com contorno escuro fino. Os destaques de cor (brilhos, tochas, portais) ficam só nas construções.</li>
+<li>Fundo transparente nas construções e tiles opacos no chão.</li></ul></div>
+<div class="card rv"><h4>Regras das construções</h4><ul class="d">
+<li>Base (ou porta) rente à borda inferior da imagem.</li>
+<li>Sombra elíptica suave embaixo.</li>
+<li>Chamas, tochas, portal e brilhos são animados pelo código. Desenhe a fogueira, as tochas e o portal <b>sem fogo e sem brilho</b>, ou faça 2 ou 3 quadros de animação.</li></ul></div>
+</div>
+
+<h3 class="rv">Solo: tiles de 64×64 px</h3>
+<p class="rv">Cada tile mede <b>64×64 px</b> (a grade do jogo) e precisa ser <b>repetível nas quatro bordas</b>. Se preferir, desenhe em 32×32 e amplie ×2. O chão deve ser discreto, com no máximo 3 ou 4 tons e baixo contraste, para não brigar com heróis e inimigos. Hoje ele é uma cor lisa com ruído leve, uma borda clara em cima e à esquerda e uma escura embaixo e à direita, mais manchas escuras e rachaduras ocasionais.</p>
+<div class="tbl rv"><table><thead><tr><th>Bioma</th><th>Cor base</th><th>Ideia</th></tr></thead><tbody><tr><td><span class="sw" style="--c:#322822"></span><b>Marca do Peregrino</b></td><td><code class="fn">#322822</code></td><td>terra marrom escura, pedrinhas, grama seca</td></tr><tr><td><span class="sw" style="--c:#102A28"></span><b>Pântanos de Siltus</b></td><td><code class="fn">#102A28</code></td><td>verde-azulado, lama, poças escuras, musgo</td></tr><tr><td><span class="sw" style="--c:#1E1C24"></span><b>Minas de Ferro Negro</b></td><td><code class="fn">#1E1C24</code></td><td>pedra cinza-arroxeada, cascalho, veios de minério</td></tr><tr><td><span class="sw" style="--c:#2E1628"></span><b>Aethelgard Caída</b></td><td><code class="fn">#2E1628</code></td><td>pedra vinho/roxa de ruína, rachaduras</td></tr></tbody></table></div>
+<p class="mu rv" style="margin-top:10px">Faça de 3 a 4 variações por bioma (ex.: <code class="fn">Marca do Peregrino 1.png</code>, <code class="fn">Marca do Peregrino 2.png</code>) e uma variação rara com uma runa ciana (#5CE1FF) levemente brilhante.</p>
+
+<h3 class="rv">Tiles especiais</h3>
+<div class="tbl rv"><table><thead><tr><th>Tile</th><th>Cor</th><th>Descrição</th></tr></thead><tbody><tr><td><span class="sw" style="--c:#4A5268"></span><b>Trilha de pedra</b> (Pântanos)</td><td><code class="fn">#4A5268</code></td><td>laje cinza-azulada com margem de 3 px de lama nas bordas</td></tr><tr><td><span class="sw" style="--c:#1E402E"></span><b>Acampamento: grama</b></td><td><code class="fn">#1E402E</code></td><td>grama verde escura</td></tr><tr><td><span class="sw" style="--c:#604C36"></span><b>Acampamento: terra batida</b></td><td><code class="fn">#604C36</code></td><td>no centro do acampamento</td></tr><tr><td><span class="sw" style="--c:#7E6444"></span><b>Acampamento: trilha de terra</b></td><td><code class="fn">#7E6444</code></td><td>caminhos que ligam a fogueira às construções</td></tr></tbody></table></div>
+
+<h3 class="rv">Construções</h3>
+<p class="rv">Cabana, casa e caverna têm <b>180 px de altura, 3× a do herói</b> (60 px). A porta (ou a boca da caverna) fica no centro da base da imagem: as paredes são sólidas e só a entrada fica livre.</p>
+<div class="tbl rv"><table><thead><tr><th>Construção</th><th class="num">Tamanho (px)</th><th>Como é hoje</th></tr></thead><tbody><tr><td><b>Cabana</b></td><td class="num">220×180</td><td>paredes de tábuas verticais (#7A5A36), telhado marrom escuro, porta escura, janela âmbar acesa</td></tr><tr><td><b>Casa</b></td><td class="num">252×180</td><td>paredes #6A5848, telhado vinho (#7A2A36), duas janelas acesas, porta</td></tr><tr><td><b>Caverna</b></td><td class="num">294×180</td><td>monte de pedra roxa (#3A3648 e #4E4A60), boca preta com brilho roxo (#7A5AFF)</td></tr><tr><td><b>Santuário</b></td><td class="num">224×176</td><td>plataforma oval de pedra, 8 pilares em círculo (#6A678A), altar central, brilho roxo (#C06BFF)</td></tr><tr><td><b>Santuário vazio</b></td><td class="num">224×176</td><td>o mesmo, sem a relíquia e com tons apagados azul-acinzentados (#5A5A88)</td></tr><tr><td><b>Portão das Hordas</b></td><td class="num">168×180</td><td>dois pilares de pedra, arco com caveira, portal roxo-rosa, tochas laterais</td></tr><tr><td><b>Trilha Livre</b></td><td class="num">132×110</td><td>arco de madeira com placa “LIVRE”, lanternas verdes (#6EF09A)</td></tr><tr><td><b>Tenda dos Heróis</b></td><td class="num">136×120</td><td>tenda vermelha (#A83240) com listras creme, entrada escura, bandeira dourada</td></tr><tr><td><b>Mercador</b></td><td class="num">128×100</td><td>toldo listrado vermelho e creme, balcão de madeira, poções, mercador de azul</td></tr><tr><td><b>Árvore dos Talentos</b></td><td class="num">130×190</td><td>tronco grosso, copa verde-azulada enorme, brilho ciano</td></tr><tr><td><b>Mesa do Caçador</b></td><td class="num">104×95</td><td>mesa de madeira, quadro roxo com monstro, pergaminho, caveira, vela</td></tr><tr><td><b>Guia do Jogo</b></td><td class="num">52×110</td><td>pedestal de pedra com livro vermelho flutuante e brilho ciano</td></tr><tr><td><b>Quadro de Conquistas</b></td><td class="num">84×135</td><td>quadro de avisos de madeira (mantenha a ideia do desenho atual)</td></tr><tr><td><b>Fogueira</b></td><td class="num">60×70</td><td>anel de pedras e dois troncos cruzados</td></tr></tbody></table></div>
+
+<details class="dt rv"><summary>Nomes dos arquivos e como o jogo usa cada sprite</summary>
+<p style="margin-top:8px">O jogo procura os arquivos pelo nome exato, em png, webp, gif ou jpg. Os nomes sem acento também funcionam. O desenho atual continua como reserva para o que ainda não tiver sprite.</p>
+<ul class="d">
+<li><b>Sprits/Solo:</b> o nome do bioma (<code class="fn">Marca do Peregrino.png</code>) e variações numeradas de 1 a 4 (<code class="fn">Marca do Peregrino 2.png</code>). A variação rara leva “raro” no fim (<code class="fn">Marca do Peregrino raro.png</code>).</li>
+<li><b>Acampamento Trilha:</b> o jogo repete a imagem ao longo do caminho, girando na direção dele e sem esticar. A largura da trilha é a altura da imagem (até 72 px). Desenhe um pedaço que se repita nas bordas esquerda e direita.</li>
+<li><b>Tiles especiais (também em Sprits/Solo):</b> <code class="fn">Trilha de Pedra.png</code>, <code class="fn">Acampamento Grama.png</code>, <code class="fn">Acampamento Terra.png</code> e <code class="fn">Acampamento Trilha.png</code>.</li>
+<li><b>Construções:</b> a pasta pode ficar dentro de Sprits ou ao lado dela. Use os nomes da tabela, com o santuário apagado em <code class="fn">Santuário vazio.png</code>. O Mercador também aceita <code class="fn">Barraca do Mercador.png</code>.</li>
+<li>A imagem é ajustada dentro do tamanho da tabela, com a base encostada embaixo.</li>
+<li><b>Portão das Hordas</b> (imagem de 168×180): deixe o vão do portal transparente, dos pontos x 36 a 132 e y 68 a 164. O código desenha o portal animado atrás da imagem. A chama das tochas também é do código e nasce em x 24 e x 144, y 10.</li>
+<li><b>Fogueira, Mesa do Caçador, Trilha Livre, Árvore dos Talentos e Guia do Jogo:</b> o código acrescenta por cima as chamas e os brilhos animados. Na Tenda dos Heróis, os heróis aparecem na frente da tenda.</li>
+</ul></details>
+</section>
+
 <footer>Rogue Link: Relíquias · Guia do jogo. Valores extraídos do código do jogo (index.html).</footer>
 </main>
 
@@ -394,7 +437,7 @@ const EN=[
 const BY=Object.fromEntries(EN.map(e=>[e[1],e]));
 $('#track').innerHTML=EN.concat(EN).map(e=>spr('e_'+e[0],'Inimigos',e[1])).join('');
 /* nav */
-const SEC=[['s1','Visão geral'],['s2','Heróis'],['s3','Armas'],['s4','Grimórios'],['s5','Mantos'],['s6','Consumíveis'],['s7','Melhorias'],['s8','Bestiário'],['s9','Regiões'],['s10','Loja'],['s11','Talentos'],['s12','Conquistas'],['s13','Controles']];
+const SEC=[['s1','Visão geral'],['s2','Heróis'],['s3','Armas'],['s4','Grimórios'],['s5','Mantos'],['s6','Consumíveis'],['s7','Melhorias'],['s8','Bestiário'],['s9','Regiões'],['s10','Loja'],['s11','Talentos'],['s12','Conquistas'],['s13','Controles'],['s14','Sprites']];
 $('#nav').innerHTML=SEC.map(s=>'<a href="#'+s[0]+'">'+s[1]+'</a>').join('');
 /* ---------- hordas ---------- */
 function hordas(){const h=+$('#hH').value,d=+$('#hD').value;$('#oH').textContent=h;$('#oD').textContent=d;
