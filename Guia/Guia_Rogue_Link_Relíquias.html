@@ -170,7 +170,7 @@ code.fn{font:500 12px var(--fd);background:var(--bg);border:1px solid var(--line
  <div class="eyebrow">Livro</div>
  <h1>Rogue Link:<br>Relíquias</h1>
  <p class="sub">Guia completo do jogo, com os valores tirados do código.</p>
- <div class="edition"><span class="n">Atualizado</span><span>Vilas e colisão nas construções</span><span>Modo livre: save próprio e renascimento</span><span>Sair do modo livre levando o ouro</span><span>5 armas novas</span><span>Catálogo de todos os nomes</span><span>Herói Pirotécnico</span></div>
+ <div class="edition"><span class="n">Atualizado</span><span>Vilas e colisão nas construções</span><span>Modo livre: save próprio e renascimento</span><span>Sair do modo livre levando o ouro</span><span>5 armas novas</span><span>Catálogo de todos os nomes</span><span>Herói Pirotécnico</span><span>Armaduras em 4 slots</span><span>Colecionador do acampamento</span><span>Itens viram XP</span><span>Nova economia de ouro</span><span>Inventário renovado</span></div>
  <div class="party" id="party"></div>
  <div class="march" aria-hidden="true"><div class="track" id="track"></div></div>
 </header>
@@ -188,14 +188,16 @@ code.fn{font:500 12px var(--fd);background:var(--bg);border:1px solid var(--line
   <li><b>Feitiços:</b> até 4 grimórios equipados, cada um com um botão próprio (espaços extras são comprados na loja).</li>
   <li><b>Dash:</b> investida curta de 0,2 s com 0,3 s de invulnerabilidade; recarga de 3,5 s.</li>
   <li><b>Coleta:</b> baús e itens são coletados ao chegar perto (o alcance pode ser aumentado).</li>
-  <li><b>Mochila e Mapa:</b> gerencie equipamentos na Mochila; no Mapa marque locais (bandeira, caveira, ouro, casa), até 60 marcas.</li>
+  <li><b>Personagem e Mapa:</b> a Mochila agora é a tela <b>Personagem</b>: slots de Cabeça, Mãos, Corpo, Manto, Pés, Arma e Livros ao redor do herói, painel de Ataque, Defesa e Vida, e abas Equipamento, Consumíveis e Pergaminhos. No Mapa marque locais (bandeira, caveira, ouro, casa), até 60 marcas.</li>
   <li><b>Opções:</b> teclas, botões do controle e botões de toque (posição, tamanho, opacidade e lado do joystick) são personalizáveis.</li></ul></div>
  <div class="card rv"><h4>Locais do mundo</h4><ul class="d">
   <li><b>Baús</b> (comuns e dourados) com itens e <b>caixotes</b> que também dropam.</li>
   <li><b>Santuários</b> (8 pilares) guardam itens únicos Lendários.</li>
   <li><b>Vilas</b> de casas e cabanas espalhadas pelos biomas, com pouquíssimas casas soltas fora delas, e <b>cavernas/masmorras</b> (Salões, Cruz, Anel, Gruta) com layouts variados.</li>
   <li>Casas, cabanas e cavernas têm <b>3× a altura do herói</b> e paredes sólidas: só a entrada fica livre. Os inimigos também não atravessam as paredes.</li>
-  <li>Baús também podem soltar consumíveis (14% nos comuns, 30% nos grandes).</li></ul>
+  <li>Baús também podem soltar consumíveis (14% nos comuns, 30% nos grandes).</li>
+  <li><b>Jarros, caixotes e barris</b> espalhados pelo mapa quebram quando você passa por cima e podem soltar ouro e itens.</li>
+  <li><b>Caixa do Colecionador:</b> uma caixa de correio marcada perto do ponto de partida, onde você envia 1 item por partida.</li></ul>
   <h4 style="margin-top:14px">Dificuldade e itens por distância</h4><ul class="d">
   <li>Inimigos têm +60% de poder e resistência extras sobre os valores base.</li>
   <li>Quanto mais longe e mais avançada a horda, mais fortes os inimigos e melhores os itens.</li></ul></div>
@@ -227,6 +229,21 @@ code.fn{font:500 12px var(--fd);background:var(--bg);border:1px solid var(--line
  <tr><td><b class="cy">Sair do modo livre</b> <span class="new">novo</span></td><td>Vai para o acampamento</td><td>Mantido</td><td>Não</td></tr>
  <tr><td><b>Morrer no modo livre</b> <span class="new">novo</span></td><td>Cai no chão, onde você morreu</td><td>Mantido</td><td>Não</td></tr>
  <tr><td><b class="red">Encerrar partida</b></td><td>Pago no acampamento</td><td>Apagado</td><td>Sim</td></tr></tbody></table></div>
+<h3 class="rv">Economia, XP e o Colecionador <span class="new">novo</span></h3>
+<p class="rv">Itens <b>não podem mais ser vendidos</b> durante a partida. Na Personagem, toque em <b>Trocar por XP</b>: o item rende <b>5 × multiplicador da raridade × (1 + 30% × nível do item)</b> de XP (mínimo 2). O ouro agora vem só destas fontes:</p>
+<div class="tbl rv"><table><thead><tr><th>Fonte</th><th>Ouro</th></tr></thead><tbody>
+<tr><td><b>Abates</b></td><td>12 de ouro a cada 10 inimigos abatidos. Chefes soltam o próprio ouro.</td></tr>
+<tr><td><b>Baús</b></td><td>3 orbes de ouro nos comuns e 7 nos dourados.</td></tr>
+<tr><td><b>Objetos do mapa</b></td><td>Jarros, caixotes e barris: 60% soltam 3 de ouro e 6% soltam um item. Os caixotes dentro de casas e cavernas soltam ouro em 50% das vezes.</td></tr>
+<tr><td><b>Fim de horda</b></td><td>6 orbes de ouro; a vitória na horda 10 rende +500 ao fim.</td></tr></tbody></table></div>
+<p class="rv" style="margin-top:12px">O <b>Colecionador de Relíquias</b> é o NPC do acampamento (barraca à esquerda do Portão). Ele recebe itens das suas partidas e os revende para você:</p>
+<div class="flow rv">
+ <div class="step"><div class="k">1 · Caixa de correio</div>Nas hordas e no modo livre, vá até a caixa marcada perto do início e toque em <b>Enviar ao Colecionador</b>.</div>
+ <div class="step"><div class="k">2 · Um por partida</div>Pode ser uma <b>armadura, arma ou livro</b>. Poções e pergaminhos só podem ser trocados por XP.</div>
+ <div class="step"><div class="k">3 · Compre</div><span class="coin"></span>No acampamento, pague <b>30 × multiplicador × (1 + 50% × nível)</b> de ouro. O item enviado fica à venda até ser comprado.</div>
+ <div class="step"><div class="k">4 · Equipe</div>Há slots de Cabeça, Mãos, Corpo, Pés, Arma, Livro 1 e Livro 2. O que estiver equipado lá começa a próxima partida com você.</div>
+</div>
+<p class="rv" style="margin-top:12px">A arma e os livros equipados no Colecionador substituem os iniciais do herói; sem nada equipado, vale o kit normal. A arma comprada começa cada partida com a <b>durabilidade cheia</b>, e o desgaste e os encantamentos feitos durante a partida não ficam guardados.</p>
 </section>
 
 <section id="s2"><div class="sh rv"><span class="no">2</span><h2>Heróis</h2></div>
@@ -271,17 +288,26 @@ code.fn{font:500 12px var(--fd);background:var(--bg);border:1px solid var(--line
 <p class="rv" style="margin-top:0">Cada herói começa com um feitiço: Mago (Nova), Guerreiro (Escudo), Arqueiro (Geada), Clérigo (Luz Curativa) e Pirotécnico (Chuva de Meteoros).</p>
 </section>
 
-<section id="s5"><div class="sh rv"><span class="no">5</span><h2>Mantos</h2></div>
+<section id="s5"><div class="sh rv"><span class="no">5</span><h2>Mantos e armaduras</h2></div>
 <p class="mu rv">Vida extra = 30 × multiplicador × (1 + 10% × nível). Defesa (% de redução de dano) = 4 × multiplicador. Nomes: "Manto" + um dos 8 adjetivos.</p>
 <div class="tbl rv"><table><thead><tr><th>Raridade</th><th class="num">Multiplicador</th><th class="num">Vida (nível 1)</th><th class="num">Defesa</th><th>Chance</th></tr></thead><tbody id="robes"></tbody></table></div>
 <h3 class="rv">Todos os nomes de mantos <span class="new">novo</span></h3>
 <p class="rv">Os 8 mantos que podem cair no mundo. Cada nome existe nas quatro raridades; escolha uma para ver o ícone e os valores no nível 1.</p>
 <div class="ctl rv"><div class="chips" id="mcr" role="group" aria-label="Raridade do manto"></div></div>
 <div class="grid g2" id="mcat"></div>
-<p class="rv" style="margin-top:10px">A sorte (loja e árvore) desloca as chances para raridades maiores. Mantos são o que sobra do sorteio: 23% com todos os heróis liberados, mais quando há menos armas disponíveis.</p>
+<h3 class="rv">Armaduras: 4 slots <span class="new">novo</span></h3>
+<p class="rv">Além do manto, o herói veste uma peça em cada slot. Com <b>m</b> = multiplicador da raridade (1, 1,35, 1,8 e 2,5) e <b>k</b> = 1 + 10% × nível do item, cada peça dá:</p>
+<div class="tbl rv"><table><thead><tr><th>Slot</th><th>Peças</th><th>Bônus</th></tr></thead><tbody>
+<tr><td><b>Cabeça</b></td><td>Elmo, Capuz, Bacinete</td><td>−2 × m × k% de dano recebido · −3 × m × k% em golpes fortes (projéteis e ataques de chefe) · −2 × m% de recarga dos feitiços</td></tr>
+<tr><td><b>Corpo</b></td><td>Peitoral, Couraça, Brigandina</td><td>−5 × m × k% de dano recebido · +40 × m × k de vida máxima</td></tr>
+<tr><td><b>Mãos</b></td><td>Manoplas, Luvas, Anel</td><td>+4 × m × k% de dano · +3 × m% de velocidade de ataque · +2 × m% de chance de crítico</td></tr>
+<tr><td><b>Pés</b></td><td>Botas, Botas de Malha</td><td>+3 × m% de movimento · +2,5 × m% de esquiva</td></tr></tbody></table></div>
+<p class="rv" style="margin-top:10px">A redução total de dano (manto + armaduras) tem teto de 75%. Armaduras caem como qualquer item (30% dos sorteios) e são equipadas sozinhas se o slot estiver vazio. Na Personagem, toque na peça e escolha <b>Equipar</b>.</p>
+<p class="rv" style="margin-top:10px">A sorte (loja e árvore) desloca as chances para raridades maiores. Dos itens que não são armas, 60% do sorteio vai até os Grimórios, 10% são Mantos e 30% são Armaduras (os Grimórios ficam com mais espaço quando há menos armas disponíveis).</p>
 </section>
 
 <section id="s6"><div class="sh rv"><span class="no">6</span><h2>Consumíveis</h2></div>
+<p class="mu rv">Poções e pergaminhos não podem ser enviados ao Colecionador nem vendidos: troque-os por XP na Personagem.</p>
 <div class="grid g2" id="cons"></div>
 <h3 class="rv">Os 24 pergaminhos <span class="new">novo</span></h3>
 <div class="grid g3" id="scrs"></div>
@@ -294,7 +320,7 @@ code.fn{font:500 12px var(--fd);background:var(--bg);border:1px solid var(--line
 </section>
 
 <section id="s8"><div class="sh rv"><span class="no">8</span><h2>Bestiário <span class="mu" style="font-size:.6em">23 inimigos</span></h2></div>
-<p class="mu rv">Valores finais com todos os multiplicadores já aplicados, na escala base (antes do aumento por horda e distância). O dano é por segundo de contato.</p>
+<p class="mu rv">Valores finais com todos os multiplicadores já aplicados, na escala base (antes do aumento por horda e distância). O dano é por segundo de contato. O ouro não vem mais de cada abate: a cada 10 inimigos abatidos cai um orbe de 12 de ouro (chefes soltam o próprio ouro).</p>
 <div class="ctl rv"><input type="search" id="q" placeholder="Buscar inimigo" aria-label="Buscar inimigo">
  <div class="chips" id="rf" role="group" aria-label="Região"></div>
  <div class="chips" id="sf" role="group" aria-label="Ordenar"></div></div>
@@ -437,7 +463,7 @@ const EN=[
 const BY=Object.fromEntries(EN.map(e=>[e[1],e]));
 $('#track').innerHTML=EN.concat(EN).map(e=>spr('e_'+e[0],'Inimigos',e[1])).join('');
 /* nav */
-const SEC=[['s1','Visão geral'],['s2','Heróis'],['s3','Armas'],['s4','Grimórios'],['s5','Mantos'],['s6','Consumíveis'],['s7','Melhorias'],['s8','Bestiário'],['s9','Regiões'],['s10','Loja'],['s11','Talentos'],['s12','Conquistas'],['s13','Controles'],['s14','Sprites']];
+const SEC=[['s1','Visão geral'],['s2','Heróis'],['s3','Armas'],['s4','Grimórios'],['s5','Mantos e armaduras'],['s6','Consumíveis'],['s7','Melhorias'],['s8','Bestiário'],['s9','Regiões'],['s10','Loja'],['s11','Talentos'],['s12','Conquistas'],['s13','Controles'],['s14','Sprites']];
 $('#nav').innerHTML=SEC.map(s=>'<a href="#'+s[0]+'">'+s[1]+'</a>').join('');
 /* ---------- hordas ---------- */
 function hordas(){const h=+$('#hH').value,d=+$('#hD').value;$('#oH').textContent=h;$('#oD').textContent=d;
@@ -478,8 +504,8 @@ const OWN={};HER.forEach((h,i)=>h.own.forEach(o=>(OWN[o]=OWN[o]||[]).push(i)));
 const COL={sword:'#ff8a8a',spear:'#ffb084',axe:'#ffd45a',bow:'#9be88a',xbow:'#6ef0c0',staff:'#8fd8ff',wand:'#b6a0ff',flame:'#ff7a2a'};
 const UNL=[['sword','Lâmina do Eclipse Solar'],['sword','Espada do Rei Esquecido'],['spear','Lança do Dragão Esquecido'],['axe','Machado do Carrasco Antigo'],['bow','Arco das Estrelas Cadentes'],['bow','Arco do Caçador Fantasma'],['xbow','Besta do Olho de Corvo'],['staff','Cajado do Santuário Eterno'],['staff','Cajado da Tempestade Antiga'],['wand','Varinha da Aurora'],['flame','Lança-chamas do Dragão Vivo'],['robe','Manto do Guardião Imortal'],['book','Tomo Proibido']];
 const ok=t=>!OWN[t]||OWN[t].some(i=>hu[i]);
-function drops(){const wl=Object.keys(WN).filter(ok),pw=Math.min(.39,.13*wl.length),bk=.77-pw,rb=.23;
- const seg=wl.map(t=>['<div style="flex-grow:'+pw/wl.length*100+';background:'+COL[t]+'">'+WN[t]+'</div>']).join('')+'<div style="flex-grow:'+bk*100+';background:#ff9a9a;background:var(--r2)">Grimório '+Math.round(bk*100)+'%</div><div style="flex-grow:'+rb*100+';background:var(--r1)">Manto 23%</div>';
+function drops(){const wl=Object.keys(WN).filter(ok),pw=Math.min(.39,.13*wl.length),bk=.6-pw,rb=.1,ar=.3;
+ const seg=wl.map(t=>['<div style="flex-grow:'+pw/wl.length*100+';background:'+COL[t]+'">'+WN[t]+'</div>']).join('')+'<div style="flex-grow:'+bk*100+';background:#ff9a9a;background:var(--r2)">Grimório '+Math.round(bk*100)+'%</div><div style="flex-grow:'+rb*100+';background:var(--r1)">Manto 10%</div><div style="flex-grow:'+ar*100+';background:var(--cy);color:#10163a">Armadura 30%</div>';
  $('#stk').innerHTML=seg;$('#stkn').textContent=wl.length+' tipo'+(wl.length>1?'s':'')+' de arma liberado'+(wl.length>1?'s':'')+': '+fm((pw/wl.length*100).toFixed(1))+'% de chance cada, '+Math.round(pw*100)+'% no total.';
  $$('.relic').forEach((r,i)=>r.classList.toggle('off',!(UNL[i][0]==='robe'||UNL[i][0]==='book'||ok(UNL[i][0]))))}
 $('#relics').innerHTML=UNL.map(u=>{const k=u[0]==='robe'?'robe_3':u[0]==='book'?'book_nova':'w_'+u[0]+'_3';return '<div class="card relic rv">'+im(k,'',u[1])+'<div><b>'+u[1]+'</b>'+(['spear','axe','xbow','wand','flame'].includes(u[0])?'<span class="new">novo</span>':'')+'<div class="mu" style="font-size:12px">'+(WN[u[0]]||(u[0]==='robe'?'Manto (defesa 18)':'Grimório, poder ×1,8'))+'</div></div></div>'}).join('');
